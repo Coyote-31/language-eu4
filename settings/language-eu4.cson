@@ -1,4 +1,4 @@
-'.source.eu4':
+'source.eu4':
   'editor':
     'foldEndPattern': '^\\s*\\b(\\})\\b$'
 

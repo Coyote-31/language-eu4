@@ -9,8 +9,8 @@ describe "EU4 grammar", ->
       atom.packages.activatePackage("language-eu4")
 
     runs ->
-      grammar = atom.syntax.grammarForScopeName(".source.eu4")
+      grammar = atom.syntax.grammarForScopeName("source.eu4")
 
   it "parses the grammar", ->
     expect(grammar).toBeTruthy()
-    expect(grammar.scopeName).toBe ".source.eu4"
+    expect(grammar.scopeName).toBe "source.eu4"
