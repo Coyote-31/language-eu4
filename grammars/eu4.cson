@@ -1,0 +1,4 @@
+name: 'Paradox Script EU4'
+scopeName: '.eu4.paradox'
+type: 'tree-sitter'
+parser: 'tree-sitter-mylanguage'
