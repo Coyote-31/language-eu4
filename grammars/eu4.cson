@@ -15,12 +15,12 @@ patterns: [
   {
     comment: 'Strings'
     match: '(\"[^\"]*\")'
-    name: 'string.other.eu4'
+    name: 'string.eu4'
   }
 
   {
     comment: 'Flow Control'
-    match: '\\b(if|else_if|limit)\\b'
+    match: '\\b(if|limit|else|else_if|while|trigger_switch|random|random_list)\\b'
     name: 'keyword.control.eu4'
   }
 
@@ -43,39 +43,45 @@ patterns: [
   }
 
   {
-    comment: 'Special Constants'
-    match: '\\b(ROOT|FROM|root|from)\\b'
+    comment: 'Special Values'
+    match: '\\b(ROOT|FROM|PREV|THIS)\\b'
     name: 'constant.special.eu4'
   }
 
   {
-    comment: 'Conditions'
-    match: '\\b(null)\\b'
-    name: 'support.function.condition.eu4'
+    comment: 'Controls'
+    match: '\\b(country_event|country_decisions|province_event|major|fire_only_once|is_triggered_only|trigger|mean_time_to_happen|immediate|hidden_effect|option|modifier)\\b'
+    name: 'support.function.control.eu4'
   }
 
   {
-    comment: 'Commands'
-    match: '\\b(null)\\b'
-    name: 'support.function.command.eu4'
+    comment: 'Effects'
+    match: '\\b(set_global_flag|clr_global_flag|add_country_modifier|remove_country_modifier|set_country_flag|clr_country_flag|add_province_modifier|add_permanent_province_modifier|add_province_triggered_modifier|extend_province_modifier|remove_province_modifier|set_province_flag|clr_province_flag)\\b'
+    name: 'support.function.effect.eu4'
+  }
+
+  {
+    comment: 'Triggers'
+    match: '\\b(owner|controller|emperor|has_global_flag|has_global_modifier_value|has_local_modifier_value|has_country_flag|has_country_modifier|has_province_flag|has_province_modifier)\\b'
+    name: 'support.function.trigger.eu4'
   }
 
   {
     comment: 'Modifiers'
-    match: '\\b(null)\\b'
+    match: '\\b(NULL)\\b'
     name: 'support.function.modifier.eu4'
   }
 
   {
     comment: 'Scopes'
-    match: '\\b(all_unit_leader|any_unit_leader|all_army_leader|any_army_leader|all_navy_leader|any_navy_leader|random_unit_leader|every_unit_leader|random_army_leader|every_army_leader|random_navy_leader|every_navy_leader|global_every_army_leader|random_owned_controlled_state|OVERLORD|state_id|any_neighbor_country|TAG|any_country|any_other_country|any_enemy_country|all_neighbor_country|all_country|all_enemy_country|any_state|any_owned_state|any_neighbor_state|any_allied_country|all_state|every_owned_state|all_neighbor_state|all_allied_country|every_country|random_country|every_neighbor_country|random_neighbor_country|every_enemy_country|random_enemy_country|random_state|random_owned_state|random_neighbor_state|every_state|every_owned_state|every_neighbor_state|capital_scope)\\b'
+    match: '\\b(NULL)\\b'
     name: 'support.function.scope.eu4'
   }
 
   {
-    comment: 'Event Controls'
-    match: '\\b(trigger|mean_time_to_happen|option|id|title|desc|picture|immediate|name|fire_only_once|major|is_triggered_only|hidden|icon|text|prerequisite|mutually_exclusive|bypass|available|allowed|visible|complete_tooltip|completion_reward|days_remove|remove_effect|ai_will_do|complete_effect|modifier)\\b'
-    name: 'support.function.event.eu4'
+    comment: 'Variables'
+    match: '\\b(set_variable|change_variable|subtract_variable|multiply_variable|divide_variable|check_variable|is_variable_equal|export_to_variable)\\b'
+    name: 'support.function.variable.eu4'
   }
 
   {
