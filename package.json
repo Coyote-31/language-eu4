@@ -1,7 +1,7 @@
 {
   "name": "language-eu4",
   "main": "./lib/language-eu4",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Language support for Europa Universalis IV script",
   "keywords": [
     "Paradox Interactive",
