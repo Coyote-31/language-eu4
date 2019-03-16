@@ -1,7 +1,6 @@
 scopeName: '.source.eu4'
 name: 'EU4'
 fileTypes: [
-  'txt'
 ]
 
 patterns: [
