@@ -4,8 +4,9 @@
   "version": "0.1.0",
   "description": "Language support for Europa Universalis IV script",
   "keywords": [
+    "Language",
+    "Grammar",
     "Paradox",
-    "Europa Universalis IV",
     "EU4"
   ],
   "repository": "https://github.com/oooFUNooo/language-eu4",
