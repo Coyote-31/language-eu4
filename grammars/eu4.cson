@@ -1,6 +1,7 @@
-scopeName: '.source.eu4'
+scopeName: 'source.eu4'
 name: 'EU4'
 fileTypes: [
+  'gui', 'gfx'
 ]
 
 patterns: [
