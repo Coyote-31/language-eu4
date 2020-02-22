@@ -1,0 +1,100 @@
+name: 'EU4 .mod'
+scopeName: 'source.eu4-mod'
+
+# File's extensions managed
+fileTypes: [
+  'mod'
+]
+
+# Tell the tokenizer not to "give up" on long lines
+limitLineLength: false
+
+# Checks for foldable area
+foldingStartMarker: '.*\\b(\\{)\\b'
+foldingStopMarker: '.*\\b(\\})\\b'
+
+# Manage active rules from repository
+patterns: [
+  { include: '#entry_mono' }
+  #{ include: '#entry_multi' }
+]
+
+# All rules :
+repository:
+
+  debug: {
+    name: 'invalid.illegal.eu4-mod'
+    comment: 'For debugging selectors (dev)'
+    match: '.*'
+  }
+
+  entry_mono: {
+    name: 'meta.entry.mono.eu4-mod'
+    comment: 'Check no spacing before'
+
+    match: '^(\\w[^=\\s]*)(.*)$'
+    captures:
+      1: patterns: [{ include: '#variable_mono' }]
+      2: patterns: [{ include: '#entry_mono_assignment' }]
+  }
+
+  entry_mono_assignment: {
+    name: 'meta.entry.mono.assignment.eu4-mod'
+    comment: 'Check no spacing before equal sign'
+
+    match: '^(=)(.*)'
+    captures:
+      1: patterns: [{ include: '#assignment' }]
+      2: patterns: [{ include: '#entry_mono_string' }]
+  }
+
+  entry_mono_string: {
+    name: 'meta.entry.mono.string.eu4-mod'
+    comment: 'Check no spacing before string'
+
+    match: '^("[^"]*")'
+    captures:
+      1: patterns: [{ include: '#string' }]
+  }
+
+  entry_multi: {
+    name: 'meta.entry.multi.eu4-mod'
+    comment: 'Each entire multiline variable assignation'
+
+    begin: '(\\w*)(=)(\\{)'
+    beginCaptures:
+      1: patterns: [{ include: '#variable_multi' }]
+      2: patterns: [{ include: '#assignment' }]
+
+    end: '^\\}'
+    endCaptures:
+      0: name: 'meta.entry.eol.eu4-mod'
+    patterns: [{ include: '#string' }]
+  }
+
+  ## Finest selection :
+
+  variable_mono: {
+    name: 'support.variable.eu4-mod'
+    comment: 'Names allowed for monoline variable'
+    match: '^(version|tags|name|supported_version|path|archive|remote_file_id)$'
+  }
+
+
+  variable_multi: {
+    name: 'support.variable.eu4-mod'
+    comment: 'Names allowed for multiline variable'
+    match: '^(tags|supported_version)$'
+  }
+
+  assignment: {
+    name: 'keyword.operator.assignment.eu4-mod'
+    comment: 'The operator assignment of the variable'
+    match: '^(=)$'
+  }
+
+  string: {
+    name: 'string.quoted.double.eu4-mod'
+    comment: 'String with double-quote'
+    match: '"[^"]*"'
+  }
