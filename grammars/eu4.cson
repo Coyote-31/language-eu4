@@ -3,7 +3,6 @@ scopeName: 'source.eu4'
 
 # File's extensions managed
 fileTypes: [
-  'mod'
   'gui'
   'gfx'
   'yml'
@@ -18,30 +17,29 @@ foldingStopMarker: '.*\\b(\\})\\b'
 
 # Manage active rules from repository
 patterns: [
-  { include: '#lineComment' }
+  { include: '#comment' }
   { include: '#string' }
   { include: '#control' }
   { include: '#boolean' }
   { include: '#logic' }
   { include: '#numeric' }
   { include: '#special' }
-  { include: '#functionControl' }
-  { include: '#functionEffect' }
-  { include: '#functionTrigger' }
-  { include: '#functionModifier' }
-  { include: '#functionScope' }
-  { include: '#functionVariable' }
-  { include: '#constantTag' }
-  { include: '#modAttribute' }
+  { include: '#function_control' }
+  { include: '#function_effect' }
+  { include: '#function_trigger' }
+  { include: '#function_modifier' }
+  { include: '#function_scope' }
+  { include: '#function_variable' }
+  { include: '#constant_tag' }
 ]
 
 # An array of rules
 repository:
 
-  lineComment: {
+  comment: {
     comment: 'Comments'
     match: '#.*$'
-    name: 'comment.eu4'
+    name: 'comment.line.number-sign.eu4'
   }
 
   string: {
@@ -80,43 +78,43 @@ repository:
     name: 'constant.special.eu4'
   }
 
-  functionControl: {
+  function_control: {
     comment: 'Controls'
     match: '\\b(country_event|country_decisions|province_event|major|fire_only_once|is_triggered_only|trigger|mean_time_to_happen|immediate|hidden_effect|option|modifier)\\b'
     name: 'support.function.control.eu4'
   }
 
-  functionEffect: {
+  function_effect: {
     comment: 'Effects'
     match: '\\b(set_global_flag|clr_global_flag|add_country_modifier|remove_country_modifier|set_country_flag|clr_country_flag|add_province_modifier|add_permanent_province_modifier|add_province_triggered_modifier|extend_province_modifier|remove_province_modifier|set_province_flag|clr_province_flag)\\b'
     name: 'support.function.effect.eu4'
   }
 
-  functionTrigger: {
+  function_trigger: {
     comment: 'Triggers'
     match: '\\b(owner|controller|emperor|has_global_flag|has_global_modifier_value|has_local_modifier_value|has_country_flag|has_country_modifier|has_province_flag|has_province_modifier)\\b'
     name: 'support.function.trigger.eu4'
   }
 
-  functionModifier: {
+  function_modifier: {
     comment: 'Modifiers'
     match: '\\b(NULL)\\b'
     name: 'support.function.modifier.eu4'
   }
 
-  functionScope: {
+  function_scope: {
     comment: 'Scopes'
     match: '\\b(NULL)\\b'
     name: 'support.function.scope.eu4'
   }
 
-  functionVariable: {
+  function_variable: {
     comment: 'Variables'
     match: '\\b(set_variable|change_variable|subtract_variable|multiply_variable|divide_variable|check_variable|is_variable_equal|export_to_variable)\\b'
     name: 'support.function.variable.eu4'
   }
 
-  constantTag: {
+  constant_tag: {
     comment: 'Country Tags'
     match: '\\b([A-Z][A-Z0-9][A-Z0-9])\\b'
     name: 'constant.tag.eu4'
