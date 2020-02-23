@@ -10,8 +10,8 @@ fileTypes: [
 limitLineLength: false
 
 # Checks for foldable area
-foldingStartMarker: '.*\\b(\\{)\\b'
-foldingStopMarker: '.*\\b(\\})\\b'
+foldingStartMarker: '{'
+foldingStopMarker: '}'
 
 # Manage active rules from repository
 patterns: [
@@ -22,24 +22,36 @@ patterns: [
 # All rules :
 repository:
 
+  # name: 'invalid.illegal.eu4-mod'
   debug: {
     name: 'invalid.illegal.eu4-mod'
     comment: 'For debugging selectors (dev)'
     match: '.*'
   }
 
+  ## Monoline entry :
+
   entry_mono: {
-    name: 'meta.entry.mono.eu4-mod'
+    name: 'meta.entry-mono.eu4-mod'
     comment: 'Check no spacing before'
 
-    match: '^(\\w[^=\\s]*)(.*)$'
+    match: '^(\\S.*)'
+    captures:
+      1: patterns: [{ include: '#entry_mono_variable' }]
+  }
+
+  entry_mono_variable: {
+    name: 'meta.entry-mono-variable.eu4-mod'
+    comment: 'Test and split variable from assignement'
+
+    match: '^([^=\\s]+)(.*)'
     captures:
       1: patterns: [{ include: '#variable_mono' }]
       2: patterns: [{ include: '#entry_mono_assignment' }]
   }
 
   entry_mono_assignment: {
-    name: 'meta.entry.mono.assignment.eu4-mod'
+    name: 'meta.entry-mono-assignment.eu4-mod'
     comment: 'Check no spacing before equal sign'
 
     match: '^(=)(.*)'
@@ -49,7 +61,7 @@ repository:
   }
 
   entry_mono_string: {
-    name: 'meta.entry.mono.string.eu4-mod'
+    name: 'meta.entry-mono-string.eu4-mod'
     comment: 'Check no spacing before string'
 
     match: '^("[^"]*")'
@@ -57,8 +69,10 @@ repository:
       1: patterns: [{ include: '#string' }]
   }
 
+  ## Multiline entry :
+
   entry_multi: {
-    name: 'meta.entry.multi.eu4-mod'
+    name: 'meta.entry-multi.eu4-mod'
     comment: 'Each entire multiline variable assignation'
 
     begin: '(\\w*)(=)(\\{)'
@@ -68,7 +82,7 @@ repository:
 
     end: '^\\}'
     endCaptures:
-      0: name: 'meta.entry.eol.eu4-mod'
+      0: name: 'meta.entry-eol.eu4-mod'
     patterns: [{ include: '#string' }]
   }
 
@@ -76,25 +90,25 @@ repository:
 
   variable_mono: {
     name: 'support.variable.eu4-mod'
-    comment: 'Names allowed for monoline variable'
-    match: '^(version|tags|name|supported_version|path|archive|remote_file_id)$'
-  }
 
+    comment: 'Names allowed for monoline variable'
+    match: '^(version|tags|name|supported_version|path|archive|remote_file_id)'
+  }
 
   variable_multi: {
     name: 'support.variable.eu4-mod'
     comment: 'Names allowed for multiline variable'
-    match: '^(tags|supported_version)$'
+    match: '^(tags|supported_version)'
   }
 
   assignment: {
     name: 'keyword.operator.assignment.eu4-mod'
     comment: 'The operator assignment of the variable'
-    match: '^(=)$'
+    match: '^='
   }
 
   string: {
     name: 'string.quoted.double.eu4-mod'
     comment: 'String with double-quote'
-    match: '"[^"]*"'
+    match: '^"[^"]*"'
   }
