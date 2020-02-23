@@ -3,9 +3,6 @@ scopeName: 'source.eu4'
 
 # File's extensions managed
 fileTypes: [
-  'gui'
-  'gfx'
-  'yml'
 ]
 
 # Tell the tokenizer not to "give up" on long lines.
