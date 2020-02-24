@@ -16,7 +16,7 @@ foldingStopMarker: '}'
 # Manage active rules from repository
 patterns: [
   { include: '#entry_mono' }
-  #{ include: '#entry_multi' }
+  { include: '#entry_multi' }
 ]
 
 # All rules :
@@ -33,11 +33,11 @@ repository:
 
   entry_mono: {
     name: 'meta.entry-mono.eu4-mod'
-    comment: 'Check no spacing before'
+    comment: 'Select until first space'
 
-    match: '^(\\S.*)'
+    match: '^\\b((?![\\}\\{]).)*$'
     captures:
-      1: patterns: [{ include: '#entry_mono_variable' }]
+      0: patterns: [{ include: '#entry_mono_variable' }]
   }
 
   entry_mono_variable: {
@@ -73,32 +73,42 @@ repository:
 
   entry_multi: {
     name: 'meta.entry-multi.eu4-mod'
-    comment: 'Each entire multiline variable assignation'
+    comment: 'All the multiline entry'
 
-    begin: '(\\w*)(=)(\\{)'
+    begin: '^(\\w*)(=)({)'
     beginCaptures:
       1: patterns: [{ include: '#variable_multi' }]
       2: patterns: [{ include: '#assignment' }]
+      3: name: 'punctuation.definition.arguments.begin.eu4-mod'
 
-    end: '^\\}'
+    end: '(})'
     endCaptures:
-      0: name: 'meta.entry-eol.eu4-mod'
-    patterns: [{ include: '#string' }]
+      1: name: 'punctuation.definition.arguments.end.eu4-mod'
+
+    patterns: [{ include: '#entry_multi_string' }]
+  }
+
+  entry_multi_string: {
+    name: 'meta.entry-multi-string.eu4-mod'
+    comment: ''
+
+    match: '^(\\s{2}|\\t)[\\s\\t]*("[^"]*")$'
+    captures:
+      2: patterns: [{ include: '#string' }]
   }
 
   ## Finest selection :
 
   variable_mono: {
     name: 'support.variable.eu4-mod'
-
     comment: 'Names allowed for monoline variable'
-    match: '^(version|tags|name|supported_version|path|archive|remote_file_id)'
+    match: '^(version|name|supported_version|path|archive|remote_file_id)$'
   }
 
   variable_multi: {
     name: 'support.variable.eu4-mod'
     comment: 'Names allowed for multiline variable'
-    match: '^(tags|supported_version)'
+    match: '^(tags)$'
   }
 
   assignment: {
