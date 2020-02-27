@@ -17,11 +17,11 @@ foldingStopMarker: '}'
 patterns: [
   { include: '#comment' }
   { include: '#spriteTypes' }
-#  { include: '#list_type_keyword' }
   { include: '#generic_multiline' }
   { include: '#generic_monoline' }
-  { include: '#generic_name' }
+  { include: '#generic_keyword' }
   { include: '#generic_value' }
+  #  { include: '#list_type_keyword' }
 ]
 
 # All rules :
@@ -55,6 +55,8 @@ repository:
       { include: '#spriteType' }
       { include: '#generic_multiline' }
       { include: '#generic_monoline' }
+      { include: '#generic_name' }
+      { include: '#generic_keyword' }
       { include: '#generic_value' }
     ]
   }
@@ -77,6 +79,8 @@ repository:
       { include: '#comment' }
       { include: '#generic_multiline' }
       { include: '#generic_monoline' }
+      { include: '#generic_name' }
+      { include: '#generic_keyword' }
       { include: '#generic_value' }
     ]
   }
@@ -85,7 +89,7 @@ repository:
     name: 'meta.generic-multiline.eu4-gfx'
     comment: 'Generic unknown object'
 
-    begin: '^[\\s\\t]*([^\\#\\=\\s\\t]+)[\\s\\t]*(=)[\\s\\t]*({)'
+    begin: '^[\\s\\t]*(.+)[\\s\\t]*(=)[\\s\\t]*({)'
     beginCaptures:
       1: patterns: [{ include: '#generic_name' }]
       2: patterns: [{ include: '#assignment' }]
@@ -99,6 +103,7 @@ repository:
       { include: '#comment' }
       { include: '#generic_multiline' }
       { include: '#generic_monoline' }
+      { include: '#generic_keyword' }
       { include: '#generic_value' }
     ]
   }
@@ -107,21 +112,31 @@ repository:
     name: 'meta.generic-monoline.eu4-gfx'
     comment: 'Generic unknown monoline variable assignement'
 
-    match: '^[\\s\\t]*([^\\#\\=\\s\\t]+)[\\s\\t]*(=)[\\s\\t]*([^\\#\\=\\s\\t]+[\\s\\t]*)'
+    match: '^[\\s\\t]*([^\\#\\=\\s\\t]+)[\\s\\t]*(=)[\\s\\t]*(.+)'
     captures:
       1: patterns: [{ include: '#generic_name' }]
       2: patterns: [{ include: '#assignment' }]
       3: patterns: [
+        { include: '#comment' }
         { include: '#string' }
         { include: '#generic_value' }
       ]
+  }
+
+  generic_keyword: {
+    #name: 'meta.generic-name.eu4-gfx'
+    name: 'meta.generic-keyword.eu4-gfx'
+    comment: 'Generic unknown keyword'
+    match: '^[\\s\\t]*([^\\#\\=\\s\\t\\}\\{]+)[\\s\\t]*[=]'
+    captures:
+      1: patterns: [{ include: '#generic_name' }]
   }
 
   generic_name: {
     #name: 'meta.generic-name.eu4-gfx'
     name: 'meta.generic-name.eu4-gfx'
     comment: 'Generic unknown name'
-    match: '^[\\s\\t]*([^\\#\\=\\s\\t]+)[\\s\\t]*'
+    match: '[\\s\\t]*([^\\#\\=\\s\\t\\}\\{]+)[\\s\\t]*'
     captures:
       1: name: 'invalid.illegal.eu4-gfx'
   }
