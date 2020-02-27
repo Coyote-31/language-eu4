@@ -1,0 +1,194 @@
+name: 'EU4 .gfx'
+scopeName: 'source.eu4-gfx'
+
+# File's extensions managed
+fileTypes: [
+  'gfx'
+]
+
+# Tell the tokenizer not to "give up" on long lines
+limitLineLength: false
+
+# Checks for foldable area
+foldingStartMarker: '{'
+foldingStopMarker: '}'
+
+# Manage active rules from repository
+patterns: [
+  { include: '#comment' }
+  { include: '#spriteTypes' }
+#  { include: '#list_type_keyword' }
+  { include: '#generic_multiline' }
+  { include: '#generic_monoline' }
+  { include: '#generic_name' }
+  { include: '#generic_value' }
+]
+
+# All rules :
+repository:
+
+  # name: 'invalid.illegal.eu4-gfx'
+  debug: {
+    name: 'invalid.illegal.eu4-gfx'
+    comment: 'For debugging selectors (dev)'
+    match: '.*'
+  }
+
+  ## spriteTypes :
+
+  spriteTypes: {
+    name: 'meta.spriteTypes.eu4-gfx'
+    comment: 'Root type list of spriteType objects'
+
+    begin: '^[\\s\\t]*(spriteTypes)[\\s\\t]*(=)[\\s\\t]*({)'
+    beginCaptures:
+      1: patterns: [{ include: '#list_type_keyword' }]
+      2: patterns: [{ include: '#assignment' }]
+      3: patterns: [{ include: '#punctuation_arguments_begin' }]
+
+    end: '}'
+    endCaptures:
+      0: patterns: [{ include: '#punctuation_arguments_end' }]
+
+    patterns: [
+      { include: '#comment' }
+      { include: '#spriteType' }
+      { include: '#generic_multiline' }
+      { include: '#generic_monoline' }
+      { include: '#generic_value' }
+    ]
+  }
+
+  spriteType: {
+    name: 'meta.spriteType.eu4-gfx'
+    comment: 'Generic object spriteType'
+
+    begin: '^[\\s\\t]*(spriteType)[\\s\\t]*(=)[\\s\\t]*({)'
+    beginCaptures:
+      1: patterns: [{ include: '#type_keyword' }]
+      2: patterns: [{ include: '#assignment' }]
+      3: patterns: [{ include: '#punctuation_arguments_begin' }]
+
+    end: '}'
+    endCaptures:
+      0: patterns: [{ include: '#punctuation_arguments_end' }]
+
+    patterns: [
+      { include: '#comment' }
+      { include: '#generic_multiline' }
+      { include: '#generic_monoline' }
+      { include: '#generic_value' }
+    ]
+  }
+
+  generic_multiline: {
+    name: 'meta.generic-multiline.eu4-gfx'
+    comment: 'Generic unknown object'
+
+    begin: '^[\\s\\t]*([^\\#\\=\\s\\t]+)[\\s\\t]*(=)[\\s\\t]*({)'
+    beginCaptures:
+      1: patterns: [{ include: '#generic_name' }]
+      2: patterns: [{ include: '#assignment' }]
+      3: patterns: [{ include: '#punctuation_arguments_begin' }]
+
+    end: '}'
+    endCaptures:
+      0: patterns: [{ include: '#punctuation_arguments_end' }]
+
+    patterns: [
+      { include: '#comment' }
+      { include: '#generic_multiline' }
+      { include: '#generic_monoline' }
+      { include: '#generic_value' }
+    ]
+  }
+
+  generic_monoline: {
+    name: 'meta.generic-monoline.eu4-gfx'
+    comment: 'Generic unknown monoline variable assignement'
+
+    match: '^[\\s\\t]*([^\\#\\=\\s\\t]+)[\\s\\t]*(=)[\\s\\t]*([^\\#\\=\\s\\t]+[\\s\\t]*)'
+    captures:
+      1: patterns: [{ include: '#generic_name' }]
+      2: patterns: [{ include: '#assignment' }]
+      3: patterns: [
+        { include: '#string' }
+        { include: '#generic_value' }
+      ]
+  }
+
+  generic_name: {
+    #name: 'meta.generic-name.eu4-gfx'
+    name: 'meta.generic-name.eu4-gfx'
+    comment: 'Generic unknown name'
+    match: '^[\\s\\t]*([^\\#\\=\\s\\t]+)[\\s\\t]*'
+    captures:
+      1: name: 'invalid.illegal.eu4-gfx'
+  }
+
+  generic_value: {
+    #name: 'meta.generic-value.eu4-gfx'
+    name: 'meta.generic-value.eu4-gfx'
+    comment: 'Generic unknown value'
+    #match: '[^\\#\\=\\s\\t]+'
+    match: '[\\s\\t]*([^\\#\\=\\s\\t\\}\\{]+)[\\s\\t]*'
+    captures:
+      1: name: 'invalid.deprecated.eu4-gfx'
+  }
+
+
+  ## Common :
+
+  comment: {
+    name: 'comment.line.number-sign.eu4-gfx'
+    comment: 'Line comments with # char'
+    match: '#.*'
+  }
+
+  list_type_keyword:{
+    name: 'support.type.list-type-keyword.eu4-gfx'
+    comment: 'Keywords allowed for root typed lists of objects'
+    match: '(spriteTypes|bitmapfonts|objectTypes)'
+  }
+
+  type_keyword:{
+    name: 'support.class.type-keyword.eu4-gfx'
+    comment: 'Keywords allowed for typed objects'
+    match: '(spriteType|bitmapfont|objectType)'
+  }
+
+  assignment: {
+    name: 'keyword.operator.assignment.eu4-gfx'
+    comment: 'The operator assignment of the variable'
+    match: '='
+  }
+
+  punctuation_content_begin: {
+    name: 'punctuation.definition.arguments.begin.eu4-gfx'
+    comment: 'Define punctuation content starting'
+    match: '{'
+  }
+
+  punctuation_content_end: {
+    name: 'punctuation.definition.arguments.end.eu4-gfx'
+    comment: 'Define punctuation content ending'
+    match: '}'
+  }
+
+  variable_multi: {
+    name: 'support.variable.eu4-mod'
+    comment: 'Names allowed for multiline variable'
+    match: '^()$'
+  }
+
+  variable_mono: {
+    name: 'support.variable.eu4-mod'
+    comment: 'Names allowed for monoline variable'
+    match: '(version|name|supported_version|path|archive|remote_file_id)$'
+  }
+
+  string: {
+    name: 'string.quoted.double.eu4-gfx'
+    comment: 'String with double-quote'
+    match: '^("[^"]*")'
+  }
