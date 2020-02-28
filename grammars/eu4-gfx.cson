@@ -19,9 +19,9 @@ patterns: [
   { include: '#spriteTypes' }
   { include: '#generic_multiline' }
   { include: '#generic_monoline' }
+  { include: '#list_type_keyword' }
   { include: '#generic_keyword' }
   { include: '#generic_value' }
-  { include: '#list_type_keyword' }
 ]
 
 # All rules :
